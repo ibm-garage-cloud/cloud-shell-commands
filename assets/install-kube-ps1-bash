@@ -2,10 +2,12 @@
 
 SCRIPT_DIR=$(cd $(dirname "$0"); pwd -P)
 
-if [ -f ~/.bashrc ] && ! grep -q "kube_ps1" ~/.bashrc; then
-  curl -sLO https://raw.githubusercontent.com/jonmosco/kube-ps1/master/kube-ps1.sh && \
-    chmod +x kube-ps1.sh
+if [ ! -x kube-ps1.sh ]; then
+  curl -sLO https://raw.githubusercontent.com/jonmosco/kube-ps1/master/kube-ps1.sh
+  chmod +x kube-ps1.sh
+fi
 
+if [ -f ~/.bashrc ] && ! grep -q "kube_ps1" ~/.bashrc; then
   cat "${SCRIPT_DIR}/config/bash-kube" >> ~/.bashrc
 fi
 
